@@ -1,0 +1,40 @@
+server:
+ port: 10888
+ servlet.context-path: /stock-inventory-management
+spring:
+ profiles.active: vzw-dev
+ application.name: ${SPRING_APPLICATION_NAME:stock-inventory-management}
+ output:
+    ansi:
+        enabled: DETECT 
+ h2:
+    console:
+      enabled: true
+  
+ 
+ jpa:
+  show-sql: true
+  properties:
+   hibernate:
+    enable_lazy_load_no_trans: true
+    event:
+     merge:
+      entity_copy_observer: allow
+    ddl-auto: none
+    temp.use_jdbc_metadata_defaults: false
+    dialect: org.hibernate.dialect.H2Dialect     
+  
+  
+---
+
+spring:
+ profiles: vzw-dev
+ 
+ datasource:
+  driverClassName: org.h2.Driver
+  url: jdbc:h2:file:~/testdb
+  username: sa
+  password: 
+  hikari.connection-timeout: ${POSTGRE_HIKARI_TIMEOUT:6000}
+  hikari.maximum-pool-size: ${POSTGRE_HIKARI_POOL_SIZE:5}
+
